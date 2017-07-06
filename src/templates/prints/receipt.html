@@ -47,6 +47,12 @@
         {% endif %}
         {{value.item__category__name}}
         {% endfor %}.</p>
+	
+	<div id="reciept-voucher">
+		<div id="values" style="width:50%">
+			<strong>Voucher Number: </strong>{{order_no}}/{{receiptno}}
+		</div>
+	</div>
         <div id = "mid-right">
             <span id ="highlight">Cashier</span></div>
             {% endblock %}
