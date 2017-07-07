@@ -24,19 +24,19 @@
     {% else %}
     {{buyer.buyer__customer__title}}
     {% endif %}
-     , {{address.address__street_address}}, {{address.address__district}}, 
+     , {{address.address__street_address}}, {{address.address__district}},
      {% if address.address__pin != 'None' and address.address__pin != '' %}
      {{address.address__pin}},
      {% endif %}
       {{address.address__province}} {% if method.buyer__customer__company %}
        Agency:{{method.buyer__customer__company}}
-        {% endif %} by  
+        {% endif %} by
       {% if method.mode_of_payment != 1 and method.mode_of_payment != 4 %}
     {{method.mode_of_payment__method}} No. {{method.cheque_dd_number}} dated {{method.cheque_dd_date}}
     {% else %}
-      {{method.mode_of_payment__method}} 
+      {{method.mode_of_payment__method}}
     {% endif %}
-      on account of 
+      on account of
         {% for value in material %}
         {% if flag1 == 0 and not forloop.last %}
         ,
@@ -47,10 +47,94 @@
         {% endif %}
         {{value.item__category__name}}
         {% endfor %}.</p>
-	
+
 	<div id="reciept-voucher">
-		<div id="values" style="width:50%">
-			<strong>Voucher Number: </strong>{{order_no}}/{{receiptno}}
+		<div id="values" style="width:100%">
+			<table style="border:1px solid black; width:50%; float:left;">
+                <tr style="border-bottom:1px solid black">
+					<td colspan="2"><strong>Voucher Number:</strong></td>
+					<td colspan="2">{{order_no}}/{{receiptno}}</td>
+				</tr>
+                <tr style="border-bottom:1px solid black">
+					<td colspan="2"><strong>Voucher Date:</strong></td>
+					<td colspan="2">{{ date |date:"d M, Y"}}</td>
+				</tr>
+                <tr style="border-bottom:1px solid black">
+					<td colspan="2"><strong>Place of supply:</strong></td>
+					<td colspan="2"></td>
+				</tr>
+                <tr style="border-bottom:1px solid black">
+					<td colspan="2"><strong>Reverse Charge(Y/N):</strong></td>
+					<td colspan="2"></td>
+				</tr>
+                <tr style="border-bottom:1px solid black">
+                </tr>
+                <tr style="border-bottom:1px solid black">
+					<td><strong>State:</strong></td>
+					<td>Punjab</td>
+                    <td><strong>Code</strong></td>
+                    <td></td>
+				</tr>
+            </table>
+            <table style="width:50%; float:right; border: 1px solid black">
+                <tr style="border-bottom:1px solid black">
+                    <td colspan="4"><strong>details of Receiver</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><strong>Name:</strong></td>
+                    <td colspan="2">
+                        {% if buyer.buyer__first_name %}
+                        {{buyer.buyer__first_name}} {{buyer.buyer__last_name}}
+                        {% else %}
+                        {{buyer.buyer__customer__title}}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><strong>Address:</strong></td>
+                    <td colspan="2">
+                        {{address.address__street_address}}, {{address.address__district}},
+                        {% if address.address__pin != 'None' and address.address__pin != '' %}
+                        {{address.address__pin}},
+                        {% endif %}
+                        {{address.address__province}} {% if method.buyer__customer__company %}
+                        Agency:{{method.buyer__customer__company}}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><strong>GSTIN:</strong></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td><strong>State:</strong></td>
+                    <td></td>
+                    <td><strong>Code:</strong></td>
+                    <td></td>
+                </tr>
+            </table>
+            <table style="clear:both; width:100%; border: 1px solid black;">
+                <tr rowspan="2">
+                    <th rowspan="2" colspan="1">Description of Product/Service</th>
+                    <th rowspan="2">HSN Codes</th>
+                    <th rowspan="2">Taxable Value</th>
+                    <th>
+                        <th>CGST</th>
+                        <tr>
+                            <th>Rate</th>
+                            <th>Amount</th>
+                        </tr>
+                    </th>
+                    <th>
+                        <th>SGST</th>
+                        <tr>
+                            <th>Rate</th>
+                            <th>Amount</th>
+                        </tr>
+                    </th>
+                    <th rowspan="2">Total Advance Received</th>
+                </tr>
+            </table>
 		</div>
 	</div>
         <div id = "mid-right">
